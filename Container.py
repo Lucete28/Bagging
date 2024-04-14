@@ -4,8 +4,8 @@ Bagging을 위해 컨테이너 분리 후 서버 별 API 작성
 2. 배열을 전달 받음
 3. 예측을 기록
 4. Voting 결과를 메인 터미널 서버로 전송
-- pip install -r requirements.txt
-- uvicorn container:app --reload --host 0.0.0.0 --port 8000
+- cd Bagging; pip install -r requirements.txt
+- uvicorn Container:app --reload --host 0.0.0.0 --port 8000
 """ 
 # cd C:/Users/oem/Desktop/jhy/signlanguage/SignLanguageTranslator/code/bagging; uvicorn Container1:app --reload --host 0.0.0.0 --port 800
 from tensorflow.keras.models import load_model
