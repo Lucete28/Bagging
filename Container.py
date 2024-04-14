@@ -4,8 +4,10 @@ Bagging을 위해 컨테이너 분리 후 서버 별 API 작성
 2. 배열을 전달 받음
 3. 예측을 기록
 4. Voting 결과를 메인 터미널 서버로 전송
+- pip install -r requirements.txt
+- uvicorn container:app --reload --host 0.0.0.0 --port 8000
 """ 
-# cd C:/Users/oem/Desktop/jhy/signlanguage/SignLanguageTranslator/code/bagging; uvicorn Container:app --reload --host 0.0.0.0 --port 800
+# cd C:/Users/oem/Desktop/jhy/signlanguage/SignLanguageTranslator/code/bagging; uvicorn Container1:app --reload --host 0.0.0.0 --port 800
 from tensorflow.keras.models import load_model
 import tensorflow as tf
 from fastapi import FastAPI, Request,HTTPException
@@ -14,7 +16,7 @@ import numpy as np
 from collections import Counter
 import requests
 import glob
-CONTAINER_ID = 0  # 0~10
+CONTAINER_ID = 2  # 0~10
 CONTAINER_SIZE = 3
 GPU_NUM = 0
 MODELS = []
@@ -32,7 +34,7 @@ PREDICT_LIST =[ [] for _ in range(CONTAINER_SIZE) ] #[[a],[b],[c]]
 # 모델 준비
 for i in range(CONTAINER_SIZE):
     print(f'{i+CONTAINER_ID*3}번 모델 load')
-    model_pattern = f"lstm_test103_G{i}_*.h5"
+    model_pattern = f"./lstm_test103_G{i+CONTAINER_ID*3}_*.h5"
     model_file = glob.glob(model_pattern)[0]
     model = load_model(model_file)
     MODELS.append(model)
@@ -107,4 +109,3 @@ def confirm():
 @app.get("/")
 def test():
     return {f"Container ID : {CONTAINER_ID}"}
-
