@@ -34,7 +34,7 @@ PREDICT_LIST =[ [] for _ in range(CONTAINER_SIZE) ] #[[a],[b],[c]]
 # 모델 준비
 for i in range(CONTAINER_SIZE):
     print(f'{i+CONTAINER_ID*3}번 모델 load')
-    model_pattern = f"./lstm_test103_G{i+CONTAINER_ID*3}_*.h5"
+    model_pattern = f"./models/lstm_test103_G{i+CONTAINER_ID*3}_*.h5"
     model_file = glob.glob(model_pattern)[0]
     model = load_model(model_file)
     MODELS.append(model)
